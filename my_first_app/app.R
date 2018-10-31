@@ -38,16 +38,9 @@ ui <- fluidPage(
 server <- function(input, output) {
    
    output$distPlot <- renderPlot({
-     sou <- read_csv("../data/sou.csv")
-     presidents <- read_csv("../data/presidents.csv")
      
-       sou %>%
-       left_join(presidents) %>% 
-       unnest_tokens(word, text) %>% 
-       inner_join(get_sentiments("afinn"), by = "word") %>% 
-       ## filter(year >= input$year) %>% 
-       group_by(party, date) %>% 
-       summarize(rating = mean(score)) %>% 
+     
+       read_rds("saved.rds") %>% 
        ggplot(aes(x = date, y = rating, color = party)) + geom_point() +
        xlab("Date") +
        ylab("Average Sentiment Score using AFINN Dictionary") +

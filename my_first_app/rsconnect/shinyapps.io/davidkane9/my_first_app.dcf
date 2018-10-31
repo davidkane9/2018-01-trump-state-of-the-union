@@ -5,8 +5,8 @@ account: davidkane9
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 545214
-bundleId: 1674744
+bundleId: 1674899
 url: https://davidkane9.shinyapps.io/my_first_app/
-when: 1541007407.36544
+when: 1541009681.94292
 asMultiple: FALSE
 asStatic: FALSE
