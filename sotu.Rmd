@@ -13,23 +13,14 @@ library(tidytext)
 
 
 ```{r process, warning=FALSE, message=FALSE}
-sou <- read_csv("data/sou.csv")
-presidents <- read_csv("data/presidents.csv")
+sou <- read_csv("../data/sou.csv")
+presidents <- read_csv("../data/presidents.csv")
 
-sou <- sou %>%
-  left_join(presidents)
-```
-
-```{r}
 tidy_sou <- sou %>%
+  left_join(presidents) %>% 
   unnest_tokens(word, text)
-
-```
-
-```{r}
-tidy_sou %>% 
   inner_join(get_sentiments("afinn"), by = "word") %>% 
-  filter(party %in% c("Democratic", "Republican")) %>% 
+  ## filter(year >= input$year) %>% 
   group_by(party, date) %>% 
   summarize(rating = mean(score)) %>% 
   ggplot(aes(x = date, y = rating, color = party)) + geom_point() + geom_smooth(method = "loess") +
